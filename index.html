@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>College Study Material Hub</title>
+
+  <style>
+    /* Performance optimization for mobile */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+    
+    /* Mobile performance optimizations */
+    @media (max-width: 768px) {
+      * {
+        animation: none !important;
+        transition: opacity 0.2s ease, transform 0.2s ease !important;
+      }
+      
+      *::before, *::after {
+        animation: none !important;
+      }
+    }
+    
+    :root {
+      --bg: #0f172a;
+      --bg-light: #111827;
+      --primary: #3b82f6;
+      --primary-soft: rgba(59, 130, 246, 0.15);
+      --accent: #22c55e;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --card-bg: #111827;
+      --border: #1f2933;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 35px rgba(112, 185, 44, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background: #000000;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    
+    @media (min-width: 1024px) {
+      body {
+        background: #000000;
+      }
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    
+    button, a, .material-card, .nav-pill {
+      -webkit-tap-highlight-color: rgba(59, 130, 246, 0.3);
+      touch-action: manipulation;
+    }
+
+    /* Layout - Mobile First */
+
+    .page {
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      padding: 15px 12px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+      overflow-y: auto;
+      max-width: 100%;
+    }
+    
+    @media (min-width: 768px) {
+      .page {
+        max-width: 1200px;
+        width: 95%;
+        padding: 20px 20px 50px;
+      }
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(96, 165, 250, 0.15);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3),
+                  inset 0 1px 0 rgba(96, 165, 250, 0.1);
+      width: 100%;
+      max-width: 100%;
+      text-align: center;
+      margin-bottom: 15px;
+      position: relative;
+      overflow: hidden;
+      animation: mobileGlassFlow 6s ease-in-out infinite;
+      transition: all 0.3s ease;
+      z-index: 20;
+    }
+    
+    @media (min-width: 600px) {
+      header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: auto;
+        max-width: 100%;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      header {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        width: auto;
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        animation: liquidFlow 8s ease-in-out infinite;
+        gap: 20px;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      header {
+        animation: liquidFlow 8s ease-in-out infinite;
+      }
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: transparent;
+      animation: none;
+      pointer-events: none;
+      display: none;
+    }
+    
+    @media (min-width: 1024px) {
+      header::before {
+        display: block;
+        background: linear-gradient(45deg,
+                    transparent,
+                    rgba(139, 92, 246, 0.1),
+                    rgba(59, 130, 246, 0.1),
+                    transparent);
+        animation: liquidWave 6s linear infinite;
+      }
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: transparent;
+      animation: none;
+      filter: none;
+      display: none;
+    }
+    
+    @media (min-width: 1024px) {
+      header::after {
+        display: block;
+        background: linear-gradient(90deg,
+                    transparent,
+                    rgba(139, 92, 246, 0.6),
+                    rgba(59, 130, 246, 0.6),
+                    rgba(34, 197, 94, 0.6),
+                    transparent);
+        animation: liquidEdge 3s ease-in-out infinite;
+        filter: blur(1px);
+      }
+    }
+
+    @keyframes liquidFlow {
+      0%, 100% { 
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35),
+                    inset 0 1px 0 rgba(96, 165, 250, 0.1),
+                    0 1px 32px rgba(96, 165, 250, 0.32);
+        border-color: rgba(96, 165, 250, 0.2);
+      }
+      50% { 
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45),
+                    inset 0 1px 0 rgba(96, 165, 250, 0.2),
+                    0 0 50px rgba(96, 165, 250, 0.4);
+        border-color: rgba(96, 165, 250, 0.35);
+      }
+    }
+    
+    @keyframes mobileGlassFlow {
+      0%, 100% { 
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3),
+                    inset 0 1px 0 rgba(96, 165, 250, 0.1);
+        border-color: rgba(96, 165, 250, 0.15);
+      }
+      50% { 
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35),
+                    inset 0 1px 0 rgba(96, 165, 250, 0.2);
+        border-color: rgba(96, 165, 250, 0.25);
+      }
+    }
+
+    @keyframes liquidWave {
+      0% {
+        transform: translate(-25%, -25%) rotate(0deg);
+      }
+      100% {
+        transform: translate(-25%, -25%) rotate(360deg);
+      }
+    }
+
+    @keyframes liquidEdge {
+      0%, 100% {
+        opacity: 0.6;
+        transform: scaleX(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scaleX(1.05);
+      }
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .logo-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #70a6ff, #8b5cf6 55%, #0ea5e9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      color: #0b1120;
+      box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+    }
+    
+    @media (min-width: 768px) {
+      .logo-circle {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+        box-shadow: 0 0 28px rgba(59, 130, 246, 0.7);
+      }
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+    }
+    
+    @media (min-width: 600px) {
+      .brand-text {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        width: auto;
+      }
+      
+      .brand-text span:first-child {
+        font-weight: 700;
+        font-size: 18px;
+      }
+
+      .brand-text span:last-child {
+        font-size: 11px;
+        color: var(--muted);
+      }
+    }
+
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      width: 100%;
+      margin: 0;
+    }
+    
+    @media (min-width: 768px) {
+      .nav-actions {
+        gap: 12px;
+      }
+    }
+
+    .nav-pill {
+      position: relative;
+      overflow: hidden;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.1px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      white-space: nowrap;
+    }
+    
+    @media (min-width: 768px) {
+      .nav-pill {
+        padding: 7px 12px;
+        font-size: 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      }
+    }
+
+    .nav-pill:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.28);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+
+    /* iOS-like liquid glass sheen */
+    .nav-pill::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 220%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.22) 50%, transparent 70%);
+      mix-blend-mode: screen;
+      animation: iosSheen 3.6s linear infinite;
+    }
+
+    .nav-pill::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+      pointer-events: none;
+    }
+
+    .profile-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1200;
+      padding: 16px;
+    }
+
+    .profile-modal.show {
+      display: flex;
+      animation: fadeIn 0.24s ease;
+    }
+
+    .upload-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1300;
+      padding: 16px;
+    }
+
+    .upload-modal.show {
+      display: flex;
+      animation: fadeIn 0.24s ease;
+    }
+
+    .upload-modal-card {
+      width: 100%;
+      max-width: 560px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.96));
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.42);
+    }
+
+    .upload-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .upload-modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #bfdbfe;
+    }
+
+    .upload-modal-close {
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      background: rgba(239, 68, 68, 0.12);
+      color: #fda4af;
+      border-radius: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .upload-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .upload-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .upload-label {
+      display: block;
+      color: #94a3b8;
+      font-size: 11px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      text-align: left;
+    }
+
+    .upload-input,
+    .upload-select,
+    .upload-textarea {
+      width: 100%;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      background: rgba(15, 23, 42, 0.7);
+      border-radius: 10px;
+      color: #e2e8f0;
+      padding: 10px 12px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .upload-input[readonly] {
+      color: #93c5fd;
+      background: rgba(30, 41, 59, 0.6);
+    }
+
+    .upload-input:focus,
+    .upload-select:focus,
+    .upload-textarea:focus {
+      border-color: rgba(96, 165, 250, 0.65);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.18);
+    }
+
+    .upload-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .upload-file-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .upload-file-btn {
+      border: 1px solid rgba(59, 130, 246, 0.38);
+      background: rgba(59, 130, 246, 0.14);
+      color: #bfdbfe;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .upload-file-name {
+      color: #cbd5e1;
+      font-size: 12px;
+      text-align: left;
+      word-break: break-word;
+    }
+
+    .upload-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-top: 2px;
+      margin-bottom: 8px;
+      color: #cbd5e1;
+      font-size: 12px;
+      text-align: left;
+    }
+
+    .upload-actions {
+      margin-top: 12px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .upload-cancel-btn,
+    .upload-submit-btn {
+      border-radius: 10px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+    }
+
+    .upload-cancel-btn {
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(148, 163, 184, 0.12);
+      color: #e2e8f0;
+    }
+
+    .upload-submit-btn {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #fff;
+    }
+
+    .upload-submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 640px) {
+      .upload-form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .profile-modal-card {
+      width: 100%;
+      max-width: 520px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.4);
+    }
+
+    .profile-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .profile-modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #bfdbfe;
+    }
+
+    .profile-modal-close {
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      background: rgba(239, 68, 68, 0.12);
+      color: #fda4af;
+      border-radius: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .profile-item {
+      background: rgba(148, 163, 184, 0.1);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: left;
+    }
+
+    .profile-item.full {
+      grid-column: 1 / -1;
+    }
+
+    .profile-item-label {
+      display: block;
+      color: #94a3b8;
+      font-size: 11px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .profile-item-value {
+      color: #e2e8f0;
+      font-size: 13px;
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    .profile-modal-actions {
+      margin-top: 14px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .profile-logout-btn {
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      background: rgba(239, 68, 68, 0.15);
+      color: #fecaca;
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .profile-logout-btn:hover {
+      background: rgba(239, 68, 68, 0.25);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @keyframes iosSheen {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(40%); }
+    }
+
+    @keyframes liquidPulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+    }
+
+
+
+    /* Hero */
+
+    .hero {
+      margin-top: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 70vh;
+      animation: fadeIn 1s ease-out;
+      will-change: auto;
+      contain: layout style;
+      padding: 40px 20px;
+    }
+    
+    @media (min-width: 768px) {
+      .hero {
+        margin-top: 20px;
+        min-height: 75vh;
+        padding: 60px 40px;
+      }
+    }
+
+    .hero-main h1 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+      color: #e2e8f0;
+      line-height: 1.2;
+    }
+    
+    @media (min-width: 480px) {
+      .hero-main h1 {
+        font-size: 48px;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .hero-main h1 {
+        font-size: clamp(56px, 8vw, 80px);
+        margin-bottom: 24px;
+        letter-spacing: -2px;
+        animation: float 3s ease-in-out infinite;
+      }
+    }
+
+    .hero-main h1 span {
+      background: linear-gradient(135deg, #60a5fa, #22c55e, #f59e0b);
+      -webkit-background-clip: text;
+      color: transparent;
+      background-clip: text;
+      animation: none;
+      background-size: 200% 200%;
+    }
+    
+    @media (min-width: 1024px) {
+      .hero-main h1 span {
+        animation: gradientShift 3s ease-in-out infinite;
+      }
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 720px;
+      line-height: 1.6;
+      font-weight: 300;
+      margin-top: 8px;
+      padding: 0 16px;
+      text-shadow: 0 0 10px rgba(59, 130, 246, 0.35), 0 0 18px rgba(34, 197, 94, 0.25);
+      animation: subFloat 4s ease-in-out infinite, subGlow 3.2s ease-in-out infinite;
+    }
+    
+    @media (min-width: 768px) {
+      .hero-sub {
+        font-size: 18px;
+        padding: 0;
+      }
+    }
+
+    @keyframes subFloat {
+      0%, 100% {
+        transform: translateY(0);
+        opacity: 0.9;
+      }
+      50% {
+        transform: translateY(-6px);
+        opacity: 1;
+      }
+    }
+
+    @keyframes subGlow {
+      0%, 100% {
+        text-shadow: 0 0 10px rgba(59, 130, 246, 0.35), 0 0 18px rgba(34, 197, 94, 0.25);
+      }
+      50% {
+        text-shadow: 0 0 18px rgba(59, 130, 246, 0.55), 0 0 30px rgba(34, 197, 94, 0.4);
+      }
+    }
+
+    /* Glitch Title/Subtext */
+    .glitch-title {
+      position: relative;
+      display: inline-block;
+    }
+
+    .glitch-title::before,
+    .glitch-title::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      clip-path: inset(0 0 0 0);
+    }
+
+    .glitch-title::before {
+      color: #22c55e;
+      transform: translate(-2px, -2px);
+      animation: glitchShift 1.8s infinite steps(2, end);
+    }
+
+    .glitch-title::after {
+      color: #60a5fa;
+      transform: translate(2px, 2px);
+      animation: glitchShift 1.8s infinite steps(3, end) reverse;
+    }
+
+    .glitch-title {
+      animation: glitchFlicker 2.2s infinite steps(2, end);
+    }
+
+    @keyframes glitchShift {
+      0% { clip-path: inset(0 0 80% 0); }
+      20% { clip-path: inset(10% 0 60% 0); }
+      40% { clip-path: inset(40% 0 20% 0); }
+      60% { clip-path: inset(60% 0 0 0); }
+      80% { clip-path: inset(20% 0 40% 0); }
+      100% { clip-path: inset(0 0 80% 0); }
+    }
+
+    @keyframes glitchFlicker {
+      0%, 12%, 100% { opacity: 1; }
+      5%, 7%, 9% { opacity: 0.2; }
+    }
+
+    /* Liquid glass halo behind title */
+    .liquid-glass {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .liquid-glass::before,
+    .liquid-glass::after {
+      content: '';
+      position: absolute;
+      inset: -14px;
+      border-radius: 24px;
+      background: radial-gradient(circle at 30% 30%, rgba(96, 165, 250, 0.6), rgba(34, 197, 94, 0.35), transparent 65%),
+                  radial-gradient(circle at 70% 60%, rgba(244, 114, 182, 0.4), rgba(59, 130, 246, 0.35), transparent 70%);
+      filter: blur(14px);
+      opacity: 0.8;
+      z-index: -1;
+      mix-blend-mode: screen;
+      animation: glassFlow 9s linear infinite, glassShift 18s linear infinite, glassDrift 22s linear infinite;
+    }
+
+    .liquid-glass::after {
+      inset: -22px;
+      filter: blur(22px);
+      opacity: 0.6;
+      animation-duration: 11s, 20s, 26s;
+      animation-direction: reverse, normal, alternate;
+    }
+
+    @keyframes glassFlow {
+      0% { transform: scale(1) translateY(0); }
+      25% { transform: scale(1.04) translateY(-4px); }
+      50% { transform: scale(1.02) translateY(3px); }
+      75% { transform: scale(1.05) translateY(-3px); }
+      100% { transform: scale(1) translateY(0); }
+    }
+
+    @keyframes glassShift {
+      0% { background-position: 0% 50%, 100% 50%; }
+      50% { background-position: 80% 40%, 20% 60%; }
+      100% { background-position: 0% 50%, 100% 50%; }
+    }
+
+    @keyframes glassDrift {
+      0% { transform: rotate(0deg); }
+      50% { transform: rotate(1deg); }
+      100% { transform: rotate(-1deg); }
+    }
+
+    /* CODEX letter drift across page */
+    .codex-animate {
+      display: inline-block;
+      overflow: visible;
+    }
+
+    .codex-chars {
+      display: inline-flex;
+      gap: 2px;
+      position: relative;
+      height: 1em;
+      overflow: visible;
+    }
+
+    .codex-char {
+      position: relative;
+      display: inline-block;
+      will-change: transform;
+      animation: codexDrift var(--codex-duration, 12s) linear infinite;
+      animation-delay: var(--codex-delay, 0s);
+      transform: translate(0, var(--codex-y, 0px));
+    }
+
+    @keyframes codexDrift {
+      0% { transform: translate(-16px, var(--codex-y, 0px)); }
+      50% { transform: translate(16px, var(--codex-y, 0px)); }
+      100% { transform: translate(-16px, var(--codex-y, 0px)); }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes particleFloat {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+
+    /* Particle Background - Disabled on mobile for performance */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      contain: layout style paint;
+      will-change: auto;
+      display: none;
+    }
+    
+    @media (min-width: 1024px) {
+      .particles {
+        display: block;
+      }
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: linear-gradient(45deg, #60a5fa, #22c55e);
+      border-radius: 50%;
+      animation: particleFloat 8s linear infinite;
+    }
+
+    .particle:nth-child(2n) {
+      animation-duration: 6s;
+      animation-delay: 1s;
+    }
+
+    .particle:nth-child(3n) {
+      animation-duration: 10s;
+      animation-delay: 2s;
+    }
+
+    .particle:nth-child(4n) {
+      animation-duration: 7s;
+      animation-delay: 0.5s;
+    }
+
+    /* Additional Mobile Refinements */
+    
+    @media (min-width: 900px) {
+      header {
+        grid-template-columns: auto 1fr;
+        padding: 12px 18px;
+        border-radius: 999px;
+        gap: 16px;
+      }
+    }
+    
+    @media (max-width: 360px) {
+      .page {
+        padding: 10px 8px 25px;
+      }
+      
+      header {
+        padding: 8px 10px;
+        gap: 8px;
+      }
+      
+      .hero-main h1 {
+        font-size: 20px !important;
+      }
+      
+      .nav-pill {
+        padding: 6px 10px;
+        font-size: 10px;
+      }
+    }
+    
+    /* Footer Styling */
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 20px;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    footer p {
+      margin: 0;
+      padding: 0;
+    }
+    
+    footer p:not(:first-child) {
+      margin-top: 5px;
+    }
+    
+    footer a {
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    
+    footer a:hover {
+      color: rgba(255, 255, 255, 0.6);
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Background -->
+  <div class="particles" id="particles">
+    <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
+    <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
+    <div class="particle" style="left: 40%; animation-delay: 0.5s;"></div>
+    <div class="particle" style="left: 50%; animation-delay: 1.5s;"></div>
+    <div class="particle" style="left: 60%; animation-delay: 2.5s;"></div>
+    <div class="particle" style="left: 70%; animation-delay: 0.8s;"></div>
+    <div class="particle" style="left: 80%; animation-delay: 1.8s;"></div>
+    <div class="particle" style="left: 90%; animation-delay: 2.2s;"></div>
+  </div>
+
+  <div class="page">
+    <!-- NAVBAR -->
+    <header>
+      <div class="brand">
+        <div class="logo-circle">S</div>
+        <div class="brand-text">
+          <span>CODEX</span>
+          <span>All your college notes in one place</span>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <a href="materials.html" class="nav-pill">Materials</a>
+        <a href="about.html" class="nav-pill">About</a>
+        <a href="login.html" class="nav-pill">Login</a>
+        <button type="button" id="profileNavBtn" class="nav-pill">Profile</button>
+        <button type="button" id="uploadForAdminBtn" class="nav-pill">Upload File</button>
+        <input type="file" id="adminFileInput" style="display:none;" />
+      </div>
+    </header>
+
+    <div id="profileModal" class="profile-modal" role="dialog" aria-modal="true" aria-label="User profile details">
+      <div class="profile-modal-card">
+        <div class="profile-modal-header">
+          <div class="profile-modal-title">Your Profile</div>
+          <button type="button" id="profileModalClose" class="profile-modal-close">X</button>
+        </div>
+        <div id="profileGrid" class="profile-grid"></div>
+        <div class="profile-modal-actions">
+          <button type="button" id="profileLogoutBtn" class="profile-logout-btn">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="uploadModal" class="upload-modal" role="dialog" aria-modal="true" aria-label="Upload file details">
+      <div class="upload-modal-card">
+        <div class="upload-modal-header">
+          <div class="upload-modal-title">Upload File To Admin</div>
+          <button type="button" id="uploadModalClose" class="upload-modal-close">X</button>
+        </div>
+
+        <form id="uploadFormalitiesForm">
+          <div class="upload-form-grid">
+            <div class="upload-field">
+              <label class="upload-label" for="uploadUserName">Uploaded By</label>
+              <input id="uploadUserName" class="upload-input" type="text" readonly>
+            </div>
+            <div class="upload-field">
+              <label class="upload-label" for="uploadUserEmail">Uploader Email</label>
+              <input id="uploadUserEmail" class="upload-input" type="email" readonly>
+            </div>
+            <div class="upload-field">
+              <label class="upload-label" for="uploadCategory">Category</label>
+              <select id="uploadCategory" class="upload-select" required>
+                <option value="">Select Category</option>
+                <option value="Notes">Notes</option>
+                <option value="PYQ">PYQ</option>
+                <option value="Assignment">Assignment</option>
+                <option value="Project">Project</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="upload-field">
+              <label class="upload-label" for="uploadSubject">Subject</label>
+              <input id="uploadSubject" class="upload-input" type="text" placeholder="Example: DBMS" required>
+            </div>
+            <div class="upload-field full">
+              <label class="upload-label" for="uploadDescription">Description</label>
+              <textarea id="uploadDescription" class="upload-textarea" placeholder="Short description about this file"></textarea>
+            </div>
+            <div class="upload-field full">
+              <label class="upload-label">Select File</label>
+              <div class="upload-file-row">
+                <button type="button" id="uploadChooseFileBtn" class="upload-file-btn">Choose File</button>
+                <span id="uploadSelectedFileName" class="upload-file-name">No file selected</span>
+              </div>
+            </div>
+            <div class="upload-field full">
+              <label class="upload-consent">
+                <input type="checkbox" id="uploadConsent" required>
+                <span>I confirm this file is relevant study material and safe to share with admin.</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="upload-actions">
+            <button type="button" id="uploadCancelBtn" class="upload-cancel-btn">Cancel</button>
+            <button type="submit" id="uploadSubmitBtn" class="upload-submit-btn">Upload Now</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- HERO + SEARCH -->
+    <section id="home" class="hero">
+      <div class="hero-main">
+        <h1 class="glitch-title liquid-glass codex-animate" data-text="CODEX" aria-label="CODEX">
+          <span class="codex-chars">
+            <span class="codex-char" style="--codex-y: 0px; --codex-delay: 0s; --codex-duration: 12s;">C</span>
+            <span class="codex-char" style="--codex-y: 6px; --codex-delay: 1.2s; --codex-duration: 13s;">O</span>
+            <span class="codex-char" style="--codex-y: -4px; --codex-delay: 2.4s; --codex-duration: 12s;">D</span>
+            <span class="codex-char" style="--codex-y: 4px; --codex-delay: 3.6s; --codex-duration: 14s;">E</span>
+            <span class="codex-char" style="--codex-y: -6px; --codex-delay: 4.8s; --codex-duration: 12.5s;">X</span>
+          </span>
+        </h1>
+        <p class="hero-sub">Your one-stop hub for curated course notes, past papers, and quick references—built to keep you moving faster through every semester.</p>
+        
+        <!-- Quick Search on Home -->
+        <div style="margin-top: 30px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; padding: 20px; max-width: 600px;">
+          <input type="text" id="homeSearchInput" placeholder="Search by subject (e.g., DBMS, Physics, DSA...)" style="flex: 1; min-width: 200px; padding: 12px; border-radius: 8px; border: 1px solid rgba(96, 165, 250, 0.3); background: rgba(15, 23, 42, 0.8); color: #e5e7eb; font-size: 14px;">
+          <button id="homeSearchBtn" onclick="performHomeSearch()" style="padding: 12px 24px; background: linear-gradient(135deg, #3b82f6, #8b5cf6); border: none; border-radius: 8px; color: white; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">Search Materials</button>
+        </div>
+
+        <!-- Popular Subjects -->
+        <div style="margin-top: 40px;">
+          <p style="color: #9ca3af; font-size: 14px; margin-bottom: 15px;">Or browse by subject:</p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
+            <a href="#" onclick="searchBySubject('DBMS'); return false;" style="padding: 8px 16px; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 20px; color: #60a5fa; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.2s ease; cursor: pointer;">DBMS</a>
+            <a href="#" onclick="searchBySubject('Physics'); return false;" style="padding: 8px 16px; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 20px; color: #60a5fa; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.2s ease; cursor: pointer;">Physics</a>
+            <a href="#" onclick="searchBySubject('DSA'); return false;" style="padding: 8px 16px; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 20px; color: #60a5fa; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.2s ease; cursor: pointer;">DSA</a>
+            <a href="#" onclick="searchBySubject('C++'); return false;" style="padding: 8px 16px; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 20px; color: #60a5fa; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.2s ease; cursor: pointer;">C++</a>
+            <a href="#" onclick="searchBySubject('Maths'); return false;" style="padding: 8px 16px; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 20px; color: #60a5fa; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.2s ease; cursor: pointer;">Mathematics</a>
+            <a href="#" onclick="searchBySubject('DE'); return false;" style="padding: 8px 16px; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 20px; color: #60a5fa; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.2s ease; cursor: pointer;">Digital Electronics</a>
+            <a href="materials.html" style="padding: 8px 16px; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 20px; color: #60a5fa; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.2s ease;">View All →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const AUTH_SESSION_KEY = 'authSession';
+    const GOOGLE_SHEET_CONFIG_KEY = 'googleSheetApiUrl';
+    const DEFAULT_GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyb6bFjDHX08ZQRWyF8G6VcKjHlzXS02dbf5Kn5XZELGGyN-91Og8CTxllsmD8QTA/exec';
+
+    function getGoogleScriptUrl() {
+      return (localStorage.getItem(GOOGLE_SHEET_CONFIG_KEY) || DEFAULT_GOOGLE_SCRIPT_URL).trim();
+    }
+
+    function clearAuthSession() {
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem(AUTH_SESSION_KEY);
+      localStorage.removeItem('rememberedEmail');
+      localStorage.removeItem('studentProfile');
+    }
+
+    function getValidCurrentUser() {
+      const currentUserRaw = localStorage.getItem('currentUser');
+      const authSessionRaw = localStorage.getItem(AUTH_SESSION_KEY);
+
+      if (!currentUserRaw || !authSessionRaw) {
+        return null;
+      }
+
+      try {
+        const currentUser = JSON.parse(currentUserRaw);
+        const authSession = JSON.parse(authSessionRaw);
+        const expiresAt = Number(authSession.expiresAt || 0);
+
+        if (!expiresAt || Date.now() > expiresAt) {
+          clearAuthSession();
+          return null;
+        }
+
+        return currentUser;
+      } catch (error) {
+        clearAuthSession();
+        return null;
+      }
+    }
+
+    function shouldHideAuthButtons() {
+      return !!getValidCurrentUser();
+    }
+
+    function applyAuthButtonVisibility() {
+      const hide = shouldHideAuthButtons();
+      document.querySelectorAll('a[href="login.html"], a[href="signup.html"]').forEach((link) => {
+        link.style.display = hide ? 'none' : '';
+      });
+    }
+
+    applyAuthButtonVisibility();
+
+    const activeSessionUser = getValidCurrentUser();
+    const skipAutoLoginMessageOnce = sessionStorage.getItem('skipAutoLoginMessageOnce') === '1';
+    if (skipAutoLoginMessageOnce) {
+      sessionStorage.removeItem('skipAutoLoginMessageOnce');
+    } else if (activeSessionUser && sessionStorage.getItem('autoLoginNoticeShown') !== '1') {
+      sessionStorage.setItem('autoLoginNoticeShown', '1');
+      const autoName = activeSessionUser.fullName || activeSessionUser.username || activeSessionUser.email || 'User';
+      alert(`Auto login successful. Welcome back, ${autoName}!`);
+    }
+
+    // ========== HOME PAGE SEARCH FUNCTION ==========
+    function performHomeSearch() {
+      const searchTerm = document.getElementById('homeSearchInput').value.trim();
+      if (searchTerm) {
+        // Store search term in sessionStorage
+        sessionStorage.setItem('searchQuery', searchTerm);
+        // Redirect to materials page
+        window.location.href = 'materials.html';
+      }
+    }
+    
+    // Search by subject from quick links
+    function searchBySubject(subject) {
+      sessionStorage.setItem('searchQuery', subject);
+      window.location.href = 'materials.html';
+    }
+    
+    // Allow pressing Enter in search input
+    document.addEventListener('DOMContentLoaded', () => {
+      applyAuthButtonVisibility();
+
+      const homeSearchInput = document.getElementById('homeSearchInput');
+      if (homeSearchInput) {
+        homeSearchInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            performHomeSearch();
+          }
+        });
+      }
+
+      const profileNavBtn = document.getElementById('profileNavBtn');
+      const uploadForAdminBtn = document.getElementById('uploadForAdminBtn');
+      const adminFileInput = document.getElementById('adminFileInput');
+      const profileModal = document.getElementById('profileModal');
+      const profileModalClose = document.getElementById('profileModalClose');
+      const profileGrid = document.getElementById('profileGrid');
+      const profileLogoutBtn = document.getElementById('profileLogoutBtn');
+      const uploadModal = document.getElementById('uploadModal');
+      const uploadModalClose = document.getElementById('uploadModalClose');
+      const uploadFormalitiesForm = document.getElementById('uploadFormalitiesForm');
+      const uploadUserName = document.getElementById('uploadUserName');
+      const uploadUserEmail = document.getElementById('uploadUserEmail');
+      const uploadCategory = document.getElementById('uploadCategory');
+      const uploadSubject = document.getElementById('uploadSubject');
+      const uploadDescription = document.getElementById('uploadDescription');
+      const uploadChooseFileBtn = document.getElementById('uploadChooseFileBtn');
+      const uploadSelectedFileName = document.getElementById('uploadSelectedFileName');
+      const uploadConsent = document.getElementById('uploadConsent');
+      const uploadCancelBtn = document.getElementById('uploadCancelBtn');
+      const uploadSubmitBtn = document.getElementById('uploadSubmitBtn');
+
+      let selectedUploadFile = null;
+
+      function formatFileSize(bytes) {
+        if (!bytes || bytes < 1024) return `${bytes || 0} B`;
+        if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+        return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+      }
+
+      function resolveUploaderIdentity(activeUser) {
+        const currentUser = activeUser || getValidCurrentUser() || {};
+        const studentProfile = JSON.parse(localStorage.getItem('studentProfile') || '{}');
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+        const baseEmail = String(
+          currentUser.email || studentProfile.email || ''
+        ).trim().toLowerCase();
+
+        const matchedUser = baseEmail
+          ? (users.find((u) => String(u.email || '').trim().toLowerCase() === baseEmail) || {})
+          : {};
+
+        const username = String(
+          currentUser.username || studentProfile.username || matchedUser.username || 'student'
+        ).trim();
+
+        const fullName = String(
+          currentUser.fullName || studentProfile.fullName || `${matchedUser.firstName || ''} ${matchedUser.lastName || ''}`.trim() || username || 'Student'
+        ).trim();
+
+        const resolvedEmail = String(
+          currentUser.email || studentProfile.email || matchedUser.email || ''
+        ).trim().toLowerCase();
+
+        const safeUsername = username.toLowerCase().replace(/[^a-z0-9._-]/g, '') || 'student';
+        const fallbackEmail = `${safeUsername}@local.user`;
+
+        return {
+          fullName: fullName || 'Student',
+          username: username || 'student',
+          email: resolvedEmail || fallbackEmail
+        };
+      }
+
+      async function uploadFileToGoogleDrive(file, dataUrl, uploadMeta) {
+        const activeUser = getValidCurrentUser();
+        if (!activeUser) {
+          alert('Please login first before uploading files to admin.');
+          return;
+        }
+
+        const scriptUrl = getGoogleScriptUrl();
+        if (!scriptUrl) {
+          alert('Google Script URL is missing. Please connect it from Admin Dashboard first.');
+          return;
+        }
+
+        const base64Data = String(dataUrl || '').split(',')[1] || '';
+        if (!base64Data) {
+          alert('Could not prepare file data for upload.');
+          return;
+        }
+
+        const uploader = resolveUploaderIdentity(activeUser);
+
+        if (!activeUser.email && uploader.email) {
+          const mergedUser = { ...activeUser, email: uploader.email };
+          localStorage.setItem('currentUser', JSON.stringify(mergedUser));
+        }
+
+        const formBody = new URLSearchParams();
+        formBody.append('action', 'uploadFile');
+        formBody.append('fileName', file.name);
+        formBody.append('fileType', file.type || 'application/octet-stream');
+        formBody.append('fileSize', String(Number(file.size || 0)));
+        formBody.append('uploadedAt', new Date().toISOString());
+        formBody.append('uploadedByName', uploader.fullName);
+        formBody.append('uploadedByEmail', uploader.email);
+        formBody.append('uploadedByUsername', uploader.username);
+        formBody.append('email', uploader.email);
+        formBody.append('category', String((uploadMeta && uploadMeta.category) || '').trim());
+        formBody.append('subject', String((uploadMeta && uploadMeta.subject) || '').trim());
+        formBody.append('description', String((uploadMeta && uploadMeta.description) || '').trim());
+        formBody.append('base64Data', base64Data);
+
+        const uploadUrl = scriptUrl.includes('?')
+          ? `${scriptUrl}&action=uploadFile`
+          : `${scriptUrl}?action=uploadFile`;
+
+        const response = await fetch(uploadUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+          },
+          body: formBody
+        });
+
+        if (!response.ok) {
+          throw new Error(`Upload failed with status ${response.status}`);
+        }
+
+        const result = await response.json();
+        if (result.status !== 'success') {
+          throw new Error(result.message || 'Upload failed.');
+        }
+
+        return result.data || null;
+      }
+
+      function getProfileData() {
+        const studentProfile = JSON.parse(localStorage.getItem('studentProfile') || '{}');
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const baseEmail = (studentProfile.email || currentUser.email || '').toLowerCase();
+        const matchedUser = users.find((u) => (u.email || '').toLowerCase() === baseEmail) || {};
+
+        return {
+          'Full Name': studentProfile.fullName || currentUser.fullName || `${matchedUser.firstName || ''} ${matchedUser.lastName || ''}`.trim() || '-',
+          'Username': studentProfile.username || currentUser.username || matchedUser.username || '-',
+          'Email': studentProfile.email || currentUser.email || matchedUser.email || '-',
+          'Department': studentProfile.department || currentUser.department || matchedUser.department || '-',
+          'Semester': studentProfile.semester || currentUser.semester || matchedUser.semester || '-',
+          'College ID No': studentProfile.collegeIdNo || matchedUser.collegeIdNo || '-',
+          'College': studentProfile.college || matchedUser.college || '-'
+        };
+      }
+
+      function getUploaderPreviewData() {
+        const identity = resolveUploaderIdentity(getValidCurrentUser());
+        return {
+          name: identity.fullName || identity.username || 'Student',
+          email: identity.email || 'student@local.user'
+        };
+      }
+
+      function resetUploadModalState() {
+        selectedUploadFile = null;
+        uploadSelectedFileName.textContent = 'No file selected';
+        uploadFormalitiesForm.reset();
+        adminFileInput.value = '';
+
+        const preview = getUploaderPreviewData();
+        uploadUserName.value = preview.name;
+        uploadUserEmail.value = preview.email;
+      }
+
+      function openUploadModal() {
+        resetUploadModalState();
+        uploadModal.classList.add('show');
+      }
+
+      function closeUploadModal() {
+        uploadModal.classList.remove('show');
+      }
+
+      function renderProfileDetails() {
+        const data = getProfileData();
+        profileGrid.innerHTML = Object.entries(data).map(([label, value]) => {
+          const fullClass = (label === 'Email' || label === 'College') ? 'full' : '';
+          return `
+            <div class="profile-item ${fullClass}">
+              <span class="profile-item-label">${label}</span>
+              <span class="profile-item-value">${value}</span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      if (profileNavBtn) {
+        profileNavBtn.addEventListener('click', () => {
+          renderProfileDetails();
+          profileModal.classList.add('show');
+        });
+      }
+
+      if (profileModalClose) {
+        profileModalClose.addEventListener('click', () => {
+          profileModal.classList.remove('show');
+        });
+      }
+
+      if (profileModal) {
+        profileModal.addEventListener('click', (event) => {
+          if (event.target === profileModal) {
+            profileModal.classList.remove('show');
+          }
+        });
+      }
+
+      if (profileLogoutBtn) {
+        profileLogoutBtn.addEventListener('click', () => {
+          if (!confirm('Are you sure you want to logout?')) {
+            return;
+          }
+
+          clearAuthSession();
+          sessionStorage.removeItem('autoLoginNoticeShown');
+          sessionStorage.removeItem('skipAutoLoginMessageOnce');
+          profileModal.classList.remove('show');
+          alert('Logged out successfully.');
+          window.location.href = 'login.html';
+        });
+      }
+
+      if (uploadForAdminBtn && adminFileInput) {
+        uploadForAdminBtn.addEventListener('click', () => {
+          const activeUser = getValidCurrentUser();
+          if (!activeUser) {
+            alert('Please login first before uploading files to admin.');
+            window.location.href = 'login.html';
+            return;
+          }
+          openUploadModal();
+        });
+
+        uploadChooseFileBtn.addEventListener('click', () => {
+          adminFileInput.click();
+        });
+
+        uploadModalClose.addEventListener('click', closeUploadModal);
+        uploadCancelBtn.addEventListener('click', closeUploadModal);
+        uploadModal.addEventListener('click', (event) => {
+          if (event.target === uploadModal) {
+            closeUploadModal();
+          }
+        });
+
+        adminFileInput.addEventListener('change', (event) => {
+          selectedUploadFile = event.target.files && event.target.files[0] ? event.target.files[0] : null;
+          if (!selectedUploadFile) {
+            uploadSelectedFileName.textContent = 'No file selected';
+            return;
+          }
+
+          uploadSelectedFileName.textContent = `${selectedUploadFile.name} (${formatFileSize(selectedUploadFile.size)})`;
+        });
+
+        uploadFormalitiesForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+
+          if (!selectedUploadFile) {
+            alert('Please choose a file to upload.');
+            return;
+          }
+
+          if (!uploadConsent.checked) {
+            alert('Please confirm the upload consent.');
+            return;
+          }
+
+          const meta = {
+            category: uploadCategory.value.trim(),
+            subject: uploadSubject.value.trim(),
+            description: uploadDescription.value.trim()
+          };
+
+          if (!meta.category || !meta.subject) {
+            alert('Please complete category and subject before upload.');
+            return;
+          }
+
+          uploadSubmitBtn.disabled = true;
+          uploadSubmitBtn.textContent = 'Uploading...';
+
+          const reader = new FileReader();
+          reader.onload = async () => {
+            try {
+              const uploadResult = await uploadFileToGoogleDrive(selectedUploadFile, String(reader.result || ''), meta);
+              const linkMsg = uploadResult && uploadResult.viewUrl ? `\nView: ${uploadResult.viewUrl}` : '';
+              alert(`File uploaded to Google Drive successfully: ${selectedUploadFile.name} (${formatFileSize(selectedUploadFile.size)})${linkMsg}`);
+              closeUploadModal();
+            } catch (error) {
+              console.error('Google Drive upload failed:', error);
+              alert(`Upload failed: ${error.message || 'Please try again.'}`);
+            } finally {
+              uploadSubmitBtn.disabled = false;
+              uploadSubmitBtn.textContent = 'Upload Now';
+              adminFileInput.value = '';
+            }
+          };
+
+          reader.onerror = () => {
+            alert('Unable to read selected file. Please try again.');
+            uploadSubmitBtn.disabled = false;
+            uploadSubmitBtn.textContent = 'Upload Now';
+            adminFileInput.value = '';
+          };
+
+          reader.readAsDataURL(selectedUploadFile);
+        });
+      }
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && uploadModal.classList.contains('show')) {
+          closeUploadModal();
+        }
+      });
+    });
+
+    // ========== AUTO DEVICE DETECTION & RESPONSIVE SYSTEM ==========
+    // Comprehensive device detection and auto-adjustment system
+    class DeviceDetector {
+      constructor() {
+        this.deviceType = 'desktop'; // phone, tablet, desktop
+        this.os = 'unknown'; // iOS, Android, Windows, Mac, Linux
+        this.isMobile = false;
+        this.isTablet = false;
+        this.isDesktop = false;
+        this.isPortrait = true;
+        this.screenWidth = window.innerWidth;
+        this.screenHeight = window.innerHeight;
+        
+        this.init();
+      }
+
+      init() {
+        this.detectDevice();
+        this.detectOS();
+        this.detectOrientation();
+        this.applyDeviceClasses();
+        this.setupEventListeners();
+        this.logDeviceInfo();
+      }
+
+      // Detect device type based on screen size and user agent
+      detectDevice() {
+        const ua = navigator.userAgent.toLowerCase();
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+
+        // Check for mobile/tablet indicators in user agent
+        const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua);
+        const isTabletUA = /ipad|android(?!.*mobile)|xoom|kindle|playbook/i.test(ua);
+
+        // Device detection logic
+        if (screenWidth <= 480) {
+          this.deviceType = 'phone';
+          this.isMobile = true;
+        } else if (screenWidth <= 1024) {
+          this.deviceType = 'tablet';
+          this.isTablet = true;
+          this.isMobile = true;
+        } else {
+          this.deviceType = 'desktop';
+          this.isDesktop = true;
+        }
+
+        // Override based on user agent if available
+        if (isMobileUA && !isTabletUA && screenWidth <= 768) {
+          this.deviceType = 'phone';
+          this.isMobile = true;
+          this.isTablet = false;
+        } else if (isTabletUA) {
+          this.deviceType = 'tablet';
+          this.isTablet = true;
+          this.isMobile = true;
+        }
+      }
+
+      // Detect operating system
+      detectOS() {
+        const ua = navigator.userAgent.toLowerCase();
+
+        if (ua.indexOf('win') > -1) {
+          this.os = 'Windows';
+        } else if (ua.indexOf('mac') > -1 && ua.indexOf('iphone') === -1 && ua.indexOf('ipad') === -1) {
+          this.os = 'Mac';
+        } else if (ua.indexOf('iphone') > -1 || ua.indexOf('ipad') > -1 || ua.indexOf('ipod') > -1) {
+          this.os = 'iOS';
+          this.deviceType = this.deviceType === 'desktop' ? 'tablet' : this.deviceType;
+          if (ua.indexOf('iphone') > -1 || ua.indexOf('ipod') > -1) {
+            this.deviceType = 'phone';
+          }
+        } else if (ua.indexOf('android') > -1) {
+          this.os = 'Android';
+          this.deviceType = this.deviceType === 'desktop' ? 'phone' : this.deviceType;
+        } else if (ua.indexOf('linux') > -1 && ua.indexOf('x11') > -1) {
+          this.os = 'Linux';
+        }
+      }
+
+      // Detect orientation changes
+      detectOrientation() {
+        this.isPortrait = window.innerHeight >= window.innerWidth;
+      }
+
+      // Apply CSS classes to html element
+      applyDeviceClasses() {
+        const html = document.documentElement;
+        
+        // Remove all device classes
+        html.classList.remove('device-phone', 'device-tablet', 'device-desktop');
+        html.classList.remove('os-ios', 'os-android', 'os-windows', 'os-mac', 'os-linux');
+        html.classList.remove('orientation-portrait', 'orientation-landscape');
+        html.classList.remove('touch-enabled', 'touch-disabled');
+
+        // Add device type class
+        html.classList.add(`device-${this.deviceType}`);
+
+        // Add OS class
+        if (this.os !== 'unknown') {
+          html.classList.add(`os-${this.os.toLowerCase()}`);
+        }
+
+        // Add orientation class
+        html.classList.add(this.isPortrait ? 'orientation-portrait' : 'orientation-landscape');
+
+        // Add touch capability class
+        const isTouchDevice = () => {
+          return (('ontouchstart' in window) ||
+                  (navigator.maxTouchPoints > 0) ||
+                  (navigator.msMaxTouchPoints > 0));
+        };
+
+        if (isTouchDevice()) {
+          html.classList.add('touch-enabled');
+        } else {
+          html.classList.add('touch-disabled');
+        }
+
+        // Update viewport settings based on device
+        if (this.isMobile) {
+          document.body.style.overscrollBehavior = 'contain';
+        }
+      }
+
+      // Setup event listeners for orientation and resize
+      setupEventListeners() {
+        // Handle orientation change
+        window.addEventListener('orientationchange', () => {
+          setTimeout(() => {
+            this.detectOrientation();
+            this.applyDeviceClasses();
+          }, 100);
+        });
+
+        // Handle window resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(() => {
+            this.screenWidth = window.innerWidth;
+            this.screenHeight = window.innerHeight;
+            this.detectDevice();
+            this.detectOrientation();
+            this.applyDeviceClasses();
+          }, 250);
+        });
+
+        // Handle viewport meta tag updates for iOS
+        if (this.os === 'iOS') {
+          document.addEventListener('gesturestart', (e) => {
+            e.preventDefault();
+          });
+        }
+      }
+
+      // Log device information to console
+      logDeviceInfo() {
+        console.log('%c📱 Device Detection System Active', 'background: #3b82f6; color: white; padding: 8px; border-radius: 4px; font-weight: bold;');
+        console.table({
+          'Device Type': this.deviceType.toUpperCase(),
+          'Operating System': this.os,
+          'Screen Width': `${this.screenWidth}px`,
+          'Screen Height': `${this.screenHeight}px`,
+          'Orientation': this.isPortrait ? 'Portrait' : 'Landscape',
+          'Touch Enabled': 'ontouchstart' in window ? 'Yes' : 'No'
+        });
+      }
+
+      // Get device info programmatically
+      getInfo() {
+        return {
+          deviceType: this.deviceType,
+          os: this.os,
+          isMobile: this.isMobile,
+          isTablet: this.isTablet,
+          isDesktop: this.isDesktop,
+          isPortrait: this.isPortrait,
+          screenWidth: this.screenWidth,
+          screenHeight: this.screenHeight
+        };
+      }
+    }
+
+    // Initialize device detector
+    const deviceDetector = new DeviceDetector();
+
+    // Additional CSS adjustments for different devices
+    const style = document.createElement('style');
+    style.textContent = `
+      /* Device-specific optimizations */
+      
+      /* ========== PHONE OPTIMIZATIONS ========== */
+      html.device-phone {
+        --touch-target: 44px;
+      }
+
+      html.device-phone button,
+      html.device-phone a,
+      html.device-phone .nav-pill {
+        min-height: var(--touch-target);
+        min-width: var(--touch-target);
+        padding: 12px 16px !important;
+      }
+
+      html.device-phone .hero-main h1 {
+        font-size: 28px !important;
+      }
+
+      html.device-phone .hero-sub {
+        font-size: 14px !important;
+      }
+
+      /* Prevent zoom on input focus for iOS */
+      html.device-phone.os-ios input,
+      html.device-phone.os-ios button,
+      html.device-phone.os-ios a {
+        font-size: 16px;
+      }
+
+      /* ========== TABLET OPTIMIZATIONS ========== */
+      html.device-tablet .nav-actions {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      html.device-tablet .hero-main h1 {
+        font-size: 42px !important;
+      }
+
+      html.device-tablet .hero-sub {
+        font-size: 16px !important;
+      }
+
+      /* ========== DESKTOP OPTIMIZATIONS ========== */
+      html.device-desktop .hero-main h1 {
+        font-size: 56px !important;
+      }
+
+      html.device-desktop .hero-sub {
+        font-size: 18px !important;
+      }
+
+      html.device-desktop header {
+        flex-direction: row !important;
+        justify-content: space-between !important;
+      }
+
+      /* ========== LANDSCAPE ORIENTATION ========== */
+      html.orientation-landscape.device-phone {
+        --header-height: 50px;
+      }
+
+      html.orientation-landscape header {
+        padding: 10px 20px !important;
+      }
+
+      html.orientation-landscape .hero {
+        min-height: auto;
+        padding: 20px !important;
+      }
+
+      /* ========== PORTRAIT ORIENTATION ========== */
+      html.orientation-portrait header {
+        padding: 20px !important;
+      }
+
+      /* ========== TOUCH-SPECIFIC ADJUSTMENTS ========== */
+      html.touch-enabled {
+        --transition-duration: 0.15s;
+      }
+
+      html.touch-enabled button,
+      html.touch-enabled a {
+        transition: background-color 0.15s ease, transform 0.15s ease;
+      }
+
+      html.touch-enabled .nav-pill:active {
+        transform: scale(0.98);
+      }
+
+      /* ========== iOS SPECIFIC ADJUSTMENTS ========== */
+      html.os-ios {
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+      }
+
+      html.os-ios:not(.device-desktop) body {
+        -webkit-font-smoothing: antialiased;
+        -webkit-backface-visibility: hidden;
+      }
+
+      html.os-ios .nav-pill {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      html.os-ios button {
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 12px;
+      }
+
+      /* ========== ANDROID SPECIFIC ADJUSTMENTS ========== */
+      html.os-android {
+        scroll-behavior: smooth;
+      }
+
+      html.os-android .nav-pill {
+        tap-highlight-color: transparent;
+      }
+
+      /* ========== RESPONSIVE FONT SIZES ========== */
+      html.device-phone {
+        --font-title: 14px;
+        --font-text: 13px;
+        --font-small: 11px;
+      }
+
+      html.device-tablet {
+        --font-title: 15px;
+        --font-text: 14px;
+        --font-small: 12px;
+      }
+
+      html.device-desktop {
+        --font-title: 16px;
+        --font-text: 15px;
+        --font-small: 13px;
+      }
+
+      /* Safe area support for notched devices */
+      @supports (padding: max(0px)) {
+        html.os-ios .page,
+        html.os-ios body {
+          padding-left: max(0px, env(safe-area-inset-left));
+          padding-right: max(0px, env(safe-area-inset-right));
+          padding-top: max(0px, env(safe-area-inset-top));
+          padding-bottom: max(0px, env(safe-area-inset-bottom));
+        }
+      }
+
+      /* Smooth scrolling for all devices */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Prevent layout shifts on scroll */
+      html {
+        overflow-y: scroll;
+      }
+
+      /* ========== REDUCE MOTION SUPPORT ========== */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Particle System
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 12; // Optimized for better performance
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 3 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Initialize everything
+    window.addEventListener('load', () => {
+      createParticles();
+    });
+  </script>
+
+</body>
+</html>
